@@ -5,3 +5,4 @@
 /app/__pycache__
 /logs
 /migrations/versions/__pycache__
+/messages.pot

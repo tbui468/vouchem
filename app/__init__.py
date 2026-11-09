@@ -9,6 +9,8 @@ import os
 from flask_mail import Mail
 from flask_moment import Moment
 from flask_babel import Babel, lazy_gettext as _l
+from redis import Redis
+import rq
 
 def get_locale():
     return request.accept_languages.best_match(current_app.config['LANGUAGES'])
@@ -25,6 +27,9 @@ babel = Babel()
 def create_app(config_class=Config):
   app = Flask(__name__)
   app.config.from_object(config_class)
+
+  app.redis = Redis.from_url(app.config['REDIS_URL'])
+  app.task_queue = rq.Queue('microblog-tasks', connection=app.redis)
 
   db.init_app(app)
   migrate.init_app(app, db)

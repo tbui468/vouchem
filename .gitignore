@@ -7,3 +7,4 @@
 /migrations/versions/__pycache__
 /messages.pot
 /.env
+/app/main/__pycache__
